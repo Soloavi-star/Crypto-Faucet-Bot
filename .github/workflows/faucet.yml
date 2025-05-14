@@ -1,0 +1,27 @@
+name: Crypto Faucet Bot
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Toutes les heures
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cloner le dépôt
+        uses: actions/checkout@v2
+
+      - name: Configurer Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Installer les dépendances
+        run: |
+          pip install -r requirements.txt || true
+          pip install selenium
+
+      - name: Lancer le bot
+        run: python FreeFaucet_io_main.py
